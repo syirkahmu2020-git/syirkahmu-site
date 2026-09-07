@@ -239,4 +239,4 @@ footer.site .legal strong { color: var(--putih); }
   header.site .wrap { flex-direction: column; align-items: flex-start; }
   .hero h1 { font-size: 1.6rem; }
   table.rincian th { width: 140px; }
-  }
+}
