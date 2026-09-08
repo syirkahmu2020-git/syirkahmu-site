@@ -239,6 +239,81 @@ table.rincian th {
   color: var(--putih);
 }
 
+/* Konten artikel — dihasilkan otomatis dari email (lihat isiKeHtml_ di Code.gs) */
+article .subjudul-artikel {
+  color: var(--hijau-tua);
+  font-size: 1.1rem;
+  margin: 30px 0 8px;
+}
+article .blok-kutipan {
+  margin: 20px 0;
+}
+article .kutipan-arab {
+  font-size: 1.3rem;
+  text-align: center;
+  color: var(--hijau-tua);
+  line-height: 1.9;
+  margin: 0 0 8px;
+}
+article .kutipan-terjemah {
+  text-align: center;
+  font-style: italic;
+  color: var(--teks-muda);
+  margin: 0;
+}
+article .daftar-artikel {
+  padding-left: 22px;
+  margin: 12px 0;
+}
+article .daftar-artikel li {
+  margin-bottom: 8px;
+}
+article .pemisah-artikel {
+  border: none;
+  border-top: 1px solid var(--garis);
+  margin: 28px 0;
+}
+article figure.gambar-artikel {
+  margin: 20px 0;
+}
+article figure.gambar-artikel img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--garis);
+}
+.seri-badge {
+  display: inline-block;
+  background: var(--hijau-muda);
+  color: var(--hijau-tua);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin: 2px 0 10px;
+}
+
+.btn-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #25d366;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+.btn-wa:hover {
+  background: #1ebe5b;
+  text-decoration: none;
+  color: #ffffff;
+}
+.btn-wa::before {
+  content: "\1F4AC";
+  font-size: 0.95rem;
+}
+
 ul.cek-syarat { padding-left: 20px; }
 ul.cek-syarat li { margin-bottom: 8px; }
 

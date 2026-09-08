@@ -130,6 +130,7 @@
       var judul = escapeHtml(a.judul || 'Tanpa judul');
       var tanggal = escapeHtml(a.tanggal || '');
       var penulis = escapeHtml(a.penulis || '');
+      var seri = escapeHtml(a.seri || '');
       var ringkasan = escapeHtml(a.ringkasan || '');
       var slug = encodeURIComponent(a.slug || '');
       var urlArtikel = SITE_BASE_URL + 'artikel/' + slug + '.html';
@@ -142,6 +143,7 @@
         '<div class="kartu" style="margin-bottom:16px;">' +
           '<h3><a href="artikel/' + slug + '.html">' + judul + '</a></h3>' +
           '<p style="font-size:0.85rem;color:var(--teks-muda);margin-bottom:6px;">' + meta + '</p>' +
+          (seri ? '<p class="seri-badge">' + seri + '</p>' : '') +
           (tagHtml ? '<p style="margin-bottom:6px;">' + tagHtml + '</p>' : '') +
           '<p>' + ringkasan + '</p>' +
           '<p style="margin-top:10px;margin-bottom:0;">' +
