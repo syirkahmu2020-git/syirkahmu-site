@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Artikel — SyirkahMu</title>
+<link rel="icon" type="image/png" href="logo.png">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -60,6 +61,7 @@
   var wadahFilter = document.getElementById('filter-tag');
   var semuaArtikel = [];
   var tagAktif = null;
+  var SITE_BASE_URL = 'https://syirkahmu2020-git.github.io/syirkahmu-site/';
 
   function escapeHtml(teks) {
     var d = document.createElement('div');
@@ -130,6 +132,8 @@
       var penulis = escapeHtml(a.penulis || '');
       var ringkasan = escapeHtml(a.ringkasan || '');
       var slug = encodeURIComponent(a.slug || '');
+      var urlArtikel = SITE_BASE_URL + 'artikel/' + slug + '.html';
+      var teksBagikan = encodeURIComponent((a.judul || 'Tanpa judul') + ' — ' + urlArtikel);
       var meta = tanggal + (penulis ? ' &middot; oleh ' + penulis : '');
       var tagHtml = tagArtikel(a).map(function (t) {
         return '<button type="button" class="tag-chip" data-tag="' + escapeHtml(t) + '">' + escapeHtml(t) + '</button>';
@@ -140,6 +144,9 @@
           '<p style="font-size:0.85rem;color:var(--teks-muda);margin-bottom:6px;">' + meta + '</p>' +
           (tagHtml ? '<p style="margin-bottom:6px;">' + tagHtml + '</p>' : '') +
           '<p>' + ringkasan + '</p>' +
+          '<p style="margin-top:10px;margin-bottom:0;">' +
+            '<a class="btn-wa" href="https://api.whatsapp.com/send?text=' + teksBagikan + '" target="_blank" rel="noopener">Bagikan ke WhatsApp</a>' +
+          '</p>' +
         '</div>';
     }).join('');
 
