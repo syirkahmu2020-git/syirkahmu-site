@@ -210,6 +210,33 @@ table.rincian th {
   padding: 2px 10px;
   font-size: 0.78rem;
   margin: 0 6px 6px 0;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+.tombol-filter {
+  display: inline-block;
+  background: var(--putih);
+  color: var(--teks-muda);
+  border: 1px solid var(--garis);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 0.85rem;
+  margin: 0 8px 8px 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.tombol-filter:hover {
+  border-color: var(--hijau);
+  color: var(--hijau-tua);
+}
+
+.tombol-filter.aktif {
+  background: var(--hijau);
+  border-color: var(--hijau);
+  color: var(--putih);
 }
 
 ul.cek-syarat { padding-left: 20px; }
