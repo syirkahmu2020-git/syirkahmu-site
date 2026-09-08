@@ -63,6 +63,10 @@
     return d.innerHTML;
   }
 
+  function bersihkanTag(teks) {
+    return String(teks).replace(/^[\[\(\{]+\s*/, '').replace(/\s*[\]\)\}]+$/, '').trim();
+  }
+
   fetch('articles.json?_=' + Date.now())
     .then(function (r) { return r.json(); })
     .then(function (daftar) {
@@ -78,7 +82,7 @@
         var slug = encodeURIComponent(a.slug || '');
         var meta = tanggal + (penulis ? ' &middot; oleh ' + penulis : '');
         var tagHtml = (a.tag || []).map(function (t) {
-          return '<span class="tag-chip">' + escapeHtml(t) + '</span>';
+          return '<span class="tag-chip">' + escapeHtml(bersihkanTag(t)) + '</span>';
         }).join(' ');
         return '' +
           '<div class="kartu" style="margin-bottom:16px;">' +

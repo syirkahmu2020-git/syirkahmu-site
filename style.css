@@ -1,13 +1,13 @@
 /* SyirkahMu — shared stylesheet */
 :root {
-  --hijau-tua: #0f4c3a;
-  --hijau: #1a7a4c;
-  --hijau-muda: #e8f5ee;
-  --emas: #c99b3f;
-  --teks: #22302a;
-  --teks-muda: #5a6b62;
+  --hijau-tua: #0a4a49;
+  --hijau: #128f8c;
+  --hijau-muda: #e1f5f4;
+  --emas: #c97f3f;
+  --teks: #1c2b2a;
+  --teks-muda: #5a706e;
   --putih: #ffffff;
-  --garis: #dbe6df;
+  --garis: #d7e8e7;
   --radius: 10px;
 }
 
