@@ -73,12 +73,18 @@
       wadah.innerHTML = daftar.map(function (a) {
         var judul = escapeHtml(a.judul || 'Tanpa judul');
         var tanggal = escapeHtml(a.tanggal || '');
+        var penulis = escapeHtml(a.penulis || '');
         var ringkasan = escapeHtml(a.ringkasan || '');
         var slug = encodeURIComponent(a.slug || '');
+        var meta = tanggal + (penulis ? ' &middot; oleh ' + penulis : '');
+        var tagHtml = (a.tag || []).map(function (t) {
+          return '<span class="tag-chip">' + escapeHtml(t) + '</span>';
+        }).join(' ');
         return '' +
           '<div class="kartu" style="margin-bottom:16px;">' +
             '<h3><a href="artikel/' + slug + '.html">' + judul + '</a></h3>' +
-            '<p style="font-size:0.85rem;color:var(--teks-muda);margin-bottom:6px;">' + tanggal + '</p>' +
+            '<p style="font-size:0.85rem;color:var(--teks-muda);margin-bottom:6px;">' + meta + '</p>' +
+            (tagHtml ? '<p style="margin-bottom:6px;">' + tagHtml + '</p>' : '') +
             '<p>' + ringkasan + '</p>' +
           '</div>';
       }).join('');
