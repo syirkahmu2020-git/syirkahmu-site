@@ -257,13 +257,14 @@ margin: 20px 0;
 }
 article .kutipan-arab {
 font-size: 1.3rem;
-text-align: center;
+text-align: right;
+direction: rtl;
 color: var(--hijau-tua);
 line-height: 1.9;
 margin: 0 0 8px;
 }
 article .kutipan-terjemah {
-text-align: center;
+text-align: left;
 font-style: italic;
 color: var(--teks-muda);
 margin: 0;
