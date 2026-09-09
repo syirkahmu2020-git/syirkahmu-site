@@ -10,171 +10,232 @@
 <body>
 
 <header class="site">
-  <div class="wrap">
-    <a class="brand" href="index.html">
-      <span class="nama">SyirkahMu</span>
-      <span class="tagline">Sistem Ekonomi Jaringan Nailul Muna</span>
-    </a>
-    <nav class="utama">
-      <ul>
-        <li><a href="index.html">Beranda</a></li>
-        <li><a href="profil.html">Profil &amp; Legalitas</a></li>
-        <li><a href="unit-usaha.html">Unit Usaha</a></li>
-        <li><a href="keanggotaan.html">Keanggotaan</a></li>
-        <li><a href="kepengurusan.html">Kepengurusan</a></li>
-        <li><a href="artikel.html" aria-current="page">Artikel</a></li>
-        <li><a href="kontak.html">Kontak</a></li>
-      </ul>
-    </nav>
-  </div>
+<div class="wrap">
+<a class="brand" href="index.html">
+<span class="nama">SyirkahMu</span>
+<span class="tagline">Sistem Ekonomi Jaringan Nailul Muna</span>
+</a>
+<nav class="utama">
+<ul>
+<li><a href="index.html">Beranda</a></li>
+<li><a href="profil.html">Profil &amp; Legalitas</a></li>
+<li><a href="unit-usaha.html">Unit Usaha</a></li>
+<li><a href="keanggotaan.html">Keanggotaan</a></li>
+<li><a href="kepengurusan.html">Kepengurusan</a></li>
+<li><a href="artikel.html" aria-current="page">Artikel</a></li>
+<li><a href="kontak.html">Kontak</a></li>
+</ul>
+</nav>
+</div>
 </header>
 
 <main class="site-content">
-  <div class="wrap">
-    <section id="daftar-artikel">
-      <h2 class="judul-bagian">Artikel</h2>
-      <p class="sub-bagian">Kabar, informasi, dan tulisan seputar SyirkahMu.</p>
-      <div id="filter-tag" style="margin-bottom:18px;"></div>
-      <div id="daftar-artikel-isi">
-        <p>Memuat artikel&hellip;</p>
-      </div>
-    </section>
-  </div>
+<div class="wrap">
+<section id="daftar-artikel">
+<h2 class="judul-bagian">Artikel</h2>
+<p class="sub-bagian">Kabar, informasi, dan tulisan seputar SyirkahMu.</p>
+<div id="filter-seri" style="margin-bottom:10px;"></div>
+<div id="filter-tag" style="margin-bottom:18px;"></div>
+<div id="daftar-artikel-isi">
+<p>Memuat artikel&hellip;</p>
+</div>
+</section>
+</div>
 </main>
 
 <footer class="site">
-  <div class="wrap">
-    <div class="legal">
-      <strong>Syirkah Muawanah Nailul Muna</strong><br>
-      Koperasi syariah berafiliasi dengan Pondok Pesantren Nailul Muna, Gondosuli, Muntilan, Magelang.
-    </div>
-    <div>
-      <a href="profil.html">Profil &amp; Legalitas</a><br>
-      <a href="kontak.html">Kontak</a>
-    </div>
-  </div>
+<div class="wrap">
+<div class="legal">
+<strong>Syirkah Muawanah Nailul Muna</strong><br>
+Koperasi syariah berafiliasi dengan Pondok Pesantren Nailul Muna, Gondosuli, Muntilan, Magelang.
+</div>
+<div>
+<a href="profil.html">Profil &amp; Legalitas</a><br>
+<a href="kontak.html">Kontak</a>
+</div>
+</div>
 </footer>
 
 <script>
 (function () {
-  var wadah = document.getElementById('daftar-artikel-isi');
-  var wadahFilter = document.getElementById('filter-tag');
-  var semuaArtikel = [];
-  var tagAktif = null;
-  var SITE_BASE_URL = 'https://syirkahmu2020-git.github.io/syirkahmu-site/';
+var wadah = document.getElementById('daftar-artikel-isi');
+var wadahFilterTag = document.getElementById('filter-tag');
+var wadahFilterSeri = document.getElementById('filter-seri');
+var semuaArtikel = [];
+var tagAktif = null;
+var seriAktif = null;
+var SITE_BASE_URL = 'https://syirkahmu2020-git.github.io/syirkahmu-site/';
 
-  function escapeHtml(teks) {
-    var d = document.createElement('div');
-    d.innerText = teks;
-    return d.innerHTML;
-  }
+function escapeHtml(teks) {
+var d = document.createElement('div');
+d.innerText = teks;
+return d.innerHTML;
+}
 
-  function bersihkanTag(teks) {
-    return String(teks).replace(/^[\[\(\{]+\s*/, '').replace(/\s*[\]\)\}]+$/, '').trim();
-  }
+function bersihkanTag(teks) {
+return String(teks).replace(/^[\[\(\{]+\s*/, '').replace(/\s*[\]\)\}]+$/, '').trim();
+}
 
-  function tagArtikel(a) {
-    return (a.tag || []).map(bersihkanTag).filter(function (t) { return t.length > 0; });
-  }
+function tagArtikel(a) {
+return (a.tag || []).map(bersihkanTag).filter(function (t) {
+return t.length > 0 && !/^(image|gambar)\s*:/i.test(t);
+});
+}
 
-  function renderFilter() {
-    var kunciTerlihat = {};
-    var daftarTag = [];
-    semuaArtikel.forEach(function (a) {
-      tagArtikel(a).forEach(function (t) {
-        var kunci = t.toLowerCase();
-        if (!kunciTerlihat[kunci]) {
-          kunciTerlihat[kunci] = true;
-          daftarTag.push(t);
-        }
-      });
-    });
-    daftarTag.sort(function (a, b) { return a.localeCompare(b, 'id'); });
+function seriBersih(a) {
+var s = String(a.seri || '').trim();
+s = s.replace(/\s*Tag\s*:\s*.*$/i, '').trim();
+return s;
+}
 
-    if (daftarTag.length === 0) {
-      wadahFilter.innerHTML = '';
-      return;
-    }
+function renderFilterTag() {
+var kunciTerlihat = {};
+var daftarTag = [];
+semuaArtikel.forEach(function (a) {
+tagArtikel(a).forEach(function (t) {
+var kunci = t.toLowerCase();
+if (!kunciTerlihat[kunci]) {
+kunciTerlihat[kunci] = true;
+daftarTag.push(t);
+}
+});
+});
+daftarTag.sort(function (a, b) { return a.localeCompare(b, 'id'); });
 
-    var tombolSemua = '<button type="button" class="tombol-filter' +
-      (tagAktif === null ? ' aktif' : '') + '" data-tag="">Semua</button>';
-    var tombolTag = daftarTag.map(function (t) {
-      var aktif = tagAktif && tagAktif.toLowerCase() === t.toLowerCase();
-      return '<button type="button" class="tombol-filter' + (aktif ? ' aktif' : '') +
-        '" data-tag="' + escapeHtml(t) + '">' + escapeHtml(t) + '</button>';
-    }).join('');
-    wadahFilter.innerHTML = tombolSemua + tombolTag;
+if (daftarTag.length === 0) {
+wadahFilterTag.innerHTML = '';
+return;
+}
 
-    wadahFilter.querySelectorAll('[data-tag]').forEach(function (tombol) {
-      tombol.addEventListener('click', function () {
-        tagAktif = tombol.getAttribute('data-tag') || null;
-        renderFilter();
-        renderDaftar();
-      });
-    });
-  }
+var label = '<div style="font-size:0.82rem;color:var(--teks-muda);margin-bottom:6px;">Filter tag:</div>';
+var tombolSemua = '<button type="button" class="tombol-filter' +
+(tagAktif === null ? ' aktif' : '') + '" data-tag="">Semua</button>';
+var tombolTag = daftarTag.map(function (t) {
+var aktif = tagAktif && tagAktif.toLowerCase() === t.toLowerCase();
+return '<button type="button" class="tombol-filter' + (aktif ? ' aktif' : '') +
+'" data-tag="' + escapeHtml(t) + '">' + escapeHtml(t) + '</button>';
+}).join('');
+wadahFilterTag.innerHTML = label + tombolSemua + tombolTag;
 
-  function renderDaftar() {
-    var terfilter = tagAktif
-      ? semuaArtikel.filter(function (a) {
-          return tagArtikel(a).some(function (t) { return t.toLowerCase() === tagAktif.toLowerCase(); });
-        })
-      : semuaArtikel;
+wadahFilterTag.querySelectorAll('[data-tag]').forEach(function (tombol) {
+tombol.addEventListener('click', function () {
+tagAktif = tombol.getAttribute('data-tag') || null;
+renderFilterTag();
+renderDaftar();
+});
+});
+}
 
-    if (terfilter.length === 0) {
-      wadah.innerHTML = '<p>Tidak ada artikel dengan tag ini.</p>';
-      return;
-    }
+function renderFilterSeri() {
+var kunciTerlihat = {};
+var daftarSeri = [];
+semuaArtikel.forEach(function (a) {
+var s = seriBersih(a);
+if (s) {
+var kunci = s.toLowerCase();
+if (!kunciTerlihat[kunci]) {
+kunciTerlihat[kunci] = true;
+daftarSeri.push(s);
+}
+}
+});
+daftarSeri.sort(function (a, b) { return a.localeCompare(b, 'id'); });
 
-    wadah.innerHTML = terfilter.map(function (a) {
-      var judul = escapeHtml(a.judul || 'Tanpa judul');
-      var tanggal = escapeHtml(a.tanggal || '');
-      var penulis = escapeHtml(a.penulis || '');
-      var seri = escapeHtml(a.seri || '');
-      var ringkasan = escapeHtml(a.ringkasan || '');
-      var slug = encodeURIComponent(a.slug || '');
-      var urlArtikel = SITE_BASE_URL + 'artikel/' + slug + '.html';
-      var teksBagikan = encodeURIComponent((a.judul || 'Tanpa judul') + ' — ' + urlArtikel);
-      var meta = tanggal + (penulis ? ' &middot; oleh ' + penulis : '');
-      var tagHtml = tagArtikel(a).map(function (t) {
-        return '<button type="button" class="tag-chip" data-tag="' + escapeHtml(t) + '">' + escapeHtml(t) + '</button>';
-      }).join(' ');
-      return '' +
-        '<div class="kartu" style="margin-bottom:16px;">' +
-          '<h3><a href="artikel/' + slug + '.html">' + judul + '</a></h3>' +
-          '<p style="font-size:0.85rem;color:var(--teks-muda);margin-bottom:6px;">' + meta + '</p>' +
-          (seri ? '<p class="seri-badge">' + seri + '</p>' : '') +
-          (tagHtml ? '<p style="margin-bottom:6px;">' + tagHtml + '</p>' : '') +
-          '<p>' + ringkasan + '</p>' +
-          '<p style="margin-top:10px;margin-bottom:0;">' +
-            '<a class="btn-wa" href="https://api.whatsapp.com/send?text=' + teksBagikan + '" target="_blank" rel="noopener">Bagikan ke WhatsApp</a>' +
-          '</p>' +
-        '</div>';
-    }).join('');
+if (daftarSeri.length === 0) {
+wadahFilterSeri.innerHTML = '';
+return;
+}
 
-    wadah.querySelectorAll('.tag-chip[data-tag]').forEach(function (tombol) {
-      tombol.addEventListener('click', function () {
-        tagAktif = tombol.getAttribute('data-tag') || null;
-        renderFilter();
-        renderDaftar();
-      });
-    });
-  }
+var label = '<div style="font-size:0.82rem;color:var(--teks-muda);margin-bottom:6px;">Filter seri:</div>';
+var tombolSemua = '<button type="button" class="tombol-filter' +
+(seriAktif === null ? ' aktif' : '') + '" data-seri="">Semua</button>';
+var tombolSeri = daftarSeri.map(function (s) {
+var aktif = seriAktif && seriAktif.toLowerCase() === s.toLowerCase();
+return '<button type="button" class="tombol-filter' + (aktif ? ' aktif' : '') +
+'" data-seri="' + escapeHtml(s) + '">' + escapeHtml(s) + '</button>';
+}).join('');
+wadahFilterSeri.innerHTML = label + tombolSemua + tombolSeri;
 
-  fetch('articles.json?_=' + Date.now())
-    .then(function (r) { return r.json(); })
-    .then(function (daftar) {
-      if (!Array.isArray(daftar) || daftar.length === 0) {
-        wadah.innerHTML = '<p>Belum ada artikel yang diterbitkan.</p>';
-        return;
-      }
-      semuaArtikel = daftar;
-      renderFilter();
-      renderDaftar();
-    })
-    .catch(function () {
-      wadah.innerHTML = '<p>Artikel belum bisa dimuat saat ini. Coba muat ulang halaman.</p>';
-    });
+wadahFilterSeri.querySelectorAll('[data-seri]').forEach(function (tombol) {
+tombol.addEventListener('click', function () {
+seriAktif = tombol.getAttribute('data-seri') || null;
+renderFilterSeri();
+renderDaftar();
+});
+});
+}
+
+function renderDaftar() {
+var terfilter = semuaArtikel.filter(function (a) {
+var cocokTag = !tagAktif || tagArtikel(a).some(function (t) { return t.toLowerCase() === tagAktif.toLowerCase(); });
+var cocokSeri = !seriAktif || seriBersih(a).toLowerCase() === seriAktif.toLowerCase();
+return cocokTag && cocokSeri;
+});
+
+if (terfilter.length === 0) {
+wadah.innerHTML = '<p>Tidak ada artikel yang cocok dengan filter ini.</p>';
+return;
+}
+
+wadah.innerHTML = terfilter.map(function (a) {
+var judul = escapeHtml(a.judul || 'Tanpa judul');
+var tanggal = escapeHtml(a.tanggal || '');
+var penulis = escapeHtml(a.penulis || '');
+var seriTeks = seriBersih(a);
+var ringkasan = escapeHtml(a.ringkasan || '');
+var slug = encodeURIComponent(a.slug || '');
+var urlArtikel = SITE_BASE_URL + 'artikel/' + slug + '.html';
+var teksBagikan = encodeURIComponent((a.judul || 'Tanpa judul') + ' — ' + urlArtikel);
+var meta = tanggal + (penulis ? ' &middot; oleh ' + penulis : '');
+var seriHtml = seriTeks ? '<p style="margin:0 0 6px;"><button type="button" class="seri-badge" style="border:none;cursor:pointer;font-family:inherit;" data-seri="' + escapeHtml(seriTeks) + '">' + escapeHtml(seriTeks) + '</button></p>' : '';
+var tagHtml = tagArtikel(a).map(function (t) {
+return '<button type="button" class="tag-chip" data-tag="' + escapeHtml(t) + '">' + escapeHtml(t) + '</button>';
+}).join(' ');
+return '' +
+'<div class="kartu" style="margin-bottom:16px;">' +
+'<h3><a href="artikel/' + slug + '.html">' + judul + '</a></h3>' +
+'<p style="font-size:0.85rem;color:var(--teks-muda);margin-bottom:6px;">' + meta + '</p>' +
+seriHtml +
+(tagHtml ? '<p style="margin-bottom:6px;">' + tagHtml + '</p>' : '') +
+'<p>' + ringkasan + '</p>' +
+'<p style="margin-top:10px;margin-bottom:0;">' +
+'<a class="btn-wa" href="https://api.whatsapp.com/send?text=' + teksBagikan + '" target="_blank" rel="noopener">Bagikan ke WhatsApp</a>' +
+'</p>' +
+'</div>';
+}).join('');
+
+wadah.querySelectorAll('.tag-chip[data-tag]').forEach(function (tombol) {
+tombol.addEventListener('click', function () {
+tagAktif = tombol.getAttribute('data-tag') || null;
+renderFilterTag();
+renderDaftar();
+});
+});
+
+wadah.querySelectorAll('.seri-badge[data-seri]').forEach(function (tombol) {
+tombol.addEventListener('click', function () {
+seriAktif = tombol.getAttribute('data-seri') || null;
+renderFilterSeri();
+renderDaftar();
+});
+});
+}
+
+fetch('articles.json?_=' + Date.now())
+.then(function (r) { return r.json(); })
+.then(function (daftar) {
+if (!Array.isArray(daftar) || daftar.length === 0) {
+wadah.innerHTML = '<p>Belum ada artikel yang diterbitkan.</p>';
+return;
+}
+semuaArtikel = daftar;
+renderFilterSeri();
+renderFilterTag();
+renderDaftar();
+})
+.catch(function () {
+wadah.innerHTML = '<p>Artikel belum bisa dimuat saat ini. Coba muat ulang halaman.</p>';
+});
 })();
 </script>
 
