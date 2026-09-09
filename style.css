@@ -253,7 +253,9 @@ font-size: 1.1rem;
 margin: 30px 0 8px;
 }
 article .blok-kutipan {
-margin: 20px 0;
+margin: 20px auto;
+width: fit-content;
+max-width: 90%;
 }
 article .kutipan-arab {
 font-size: 1.3rem;
